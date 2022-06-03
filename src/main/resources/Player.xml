@@ -1,0 +1,14 @@
+<Player>
+    <player id= '1'>
+        <id_player>5</id_player>
+        <name>"Raul"</name>
+        <lastname>"Espinoza"</lastname>
+        <birthday>'2022-5-01'</birthday>
+        <shirt_number>1</shirt_number>
+        <banns>1</banns>
+        <goals>0</goals>
+        <football_team_id>2</football_team_id>
+    </player>
+</Player>
+
+

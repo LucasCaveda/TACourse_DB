@@ -1,0 +1,12 @@
+{
+  "championship":
+  {
+    "id": 2,
+    "name": "Copa America"
+  },
+  "footballLeague": {
+    "id": 1,
+    "name": "superliga",
+    "category": "A"
+  }
+}

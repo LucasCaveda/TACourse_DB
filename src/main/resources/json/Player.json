@@ -1,0 +1,22 @@
+[
+  {
+    "id": 4,
+    "name": "Juan",
+    "lastname": "Fernandez",
+    "birthday": "16/02/1997",
+    "shirtNumber": 8,
+    "totalBanns": 0,
+    "totalGoals": 3,
+    "footballTeamId": 1
+  },
+  {
+    "id": 5,
+    "name": "Flavio",
+    "lastname": "Gonzalez",
+    "birthday": "12/03/1994",
+    "shirtNumber": 53,
+    "totalBanns": 1,
+    "totalGoals": 1,
+    "footballTeamId": 1
+  }
+]

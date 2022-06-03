@@ -1,0 +1,35 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.dao.interfaces.IRefereeDao">
+    <resultMap id="RefereeResultMap" autoMapping="false" type="com.solvd.binary.Referee">
+        <id column="id_referee" property="id"/>
+        <result column="name" property="name"/>
+        <result column="lastname" property="lastame"/>
+        <result column="birthday" property="birthday"/>
+        <association property="match" resultMap="com.solvd.dao.interfaces.IMatchDao.MatchResultMap"/>
+    </resultMap>
+
+    <select id="getEntityId" resultMap="RefereeResultMap">
+        Select * from referee where id_referee=#{id}
+    </select>
+
+    <update id="updateEntity">
+        Update referee set `name`=#{name} where id_referee=#{id}
+    </update>
+
+    <select id="getAll" resultMap="RefereeResultMap">
+        select * from referee
+    </select>
+
+    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
+        insert into referee (`name`, lastname, birthday)
+        values (#{name},#{lastname},#{birthday})
+    </insert>
+
+    <delete id="removeEntity">
+        Delete from referee where id_referee=#{id}
+    </delete>
+
+</mapper>

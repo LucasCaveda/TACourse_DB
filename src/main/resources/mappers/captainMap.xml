@@ -1,0 +1,34 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.solvd.dao.interfaces.ICaptainDao">
+    <resultMap id="CaptainResultMap" autoMapping="false" type="com.solvd.binary.Captain">
+        <id column="id_captain" property="id"/>
+        <result column="name" property="name"/>
+        <result column="lastname" property="lastname"/>
+        <association property="footballTeam" resultMap="com.solvd.dao.interfaces.ITeamDao.TeamResultMap"/>
+    </resultMap>
+
+    <select id="getEntityId" resultMap="CaptainResultMap">
+            Select * from player where id_captain=${id}
+    </select>
+
+    <update id="updateEntity">
+        Update captain set `name`=#{name} where id_captain=#{id}
+    </update>
+
+    <select id="getAll" resultMap="CaptainResultMap">
+        select * from captain
+    </select>
+
+    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
+        insert into captain (`name`,lastname)
+        values (#{name},#{lastname})
+    </insert>
+
+    <delete id="removeEntity">
+        Delete from captain where id_captain=#{id}
+    </delete>
+
+</mapper>
