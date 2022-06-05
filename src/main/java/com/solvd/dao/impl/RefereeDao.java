@@ -9,18 +9,17 @@ import java.sql.*;
 import java.util.List;
 
 public class RefereeDao extends AbsConnection implements IRefereeDao {
-    Connection con;
-    ResultSet rs;
-    PreparedStatement stmt;
+
     private final static String SELECT_BY_ID = "SELECT * FROM `referee` where id_referee = ?";
     private final static String INSERT = "insert into `referee` (id_referee, name, lastname, birthday, match_id) values (?,?,?,?,?)";
-
-
     private final static Logger LOGGER = LogManager.getLogger(CaptainDao.class);
 
     @Override
     public Referee getEntityId(long id) throws SQLException {
         Referee r = new Referee();
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         try {
             stmt = con.prepareStatement(SELECT_BY_ID);
             stmt.setLong(1, id);
@@ -51,6 +50,8 @@ public class RefereeDao extends AbsConnection implements IRefereeDao {
 
     @Override
     public void saveEntity(Referee entity) {
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         try {
             stmt = con.prepareStatement(INSERT);
             stmt.setLong(1,entity.getId());

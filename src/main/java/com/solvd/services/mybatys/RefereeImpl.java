@@ -1,7 +1,6 @@
 package com.solvd.services.mybatys;
 
 import com.solvd.binary.Referee;
-import com.solvd.dao.impl.RefereeDao;
 import com.solvd.dao.interfaces.IRefereeDao;
 import com.solvd.services.interfaces.RefereeService;
 import org.apache.ibatis.session.SqlSession;
@@ -11,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MBReferee extends AbsSession implements RefereeService {
-    private final static Logger LOGGER = LogManager.getLogger(MBReferee.class);
+public class RefereeImpl extends AbsSession implements RefereeService {
+    private final static Logger LOGGER = LogManager.getLogger(RefereeImpl.class);
 
 
     @Override

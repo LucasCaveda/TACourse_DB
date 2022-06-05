@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MBCaptain extends AbsSession implements CaptainService {
+public class CaptainImpl extends AbsSession implements CaptainService {
 
-    private final static Logger LOGGER = LogManager.getLogger(MBCaptain.class);
+    private final static Logger LOGGER = LogManager.getLogger(CaptainImpl.class);
 
 
     @Override

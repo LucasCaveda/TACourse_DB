@@ -13,23 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FootballTeamDao extends AbsConnection implements ITeamDao {
-    Connection con;
-    ResultSet rs;
-    PreparedStatement stmt;
 
     private final static Logger LOGGER = LogManager.getLogger(FootballTeamDao.class);
+    private final static String SELECT_BY_ID = "select * from Football_Team where id = ?";
+    private final static String DELETE_BY_ID = "delete from FootballTeam where id = ?";
+    private final static String INSERT = "insert into football_team (id, name, technical_manager_id, stadium_id, president_id, city_id) values (?,?,?,?,?,?)";
 
-    public FootballTeamDao() {
-        con=getConnection();
-    }
 
     @Override
     public FootballTeam getEntityId(long id) {
-        String query = "select * from Football_Team where id = ?";
+        Connection con = getConnection();
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
         FootballTeam t = new FootballTeam();
 
         try {
-            stmt = con.prepareStatement(query);
+            stmt = con.prepareStatement(SELECT_BY_ID);
             stmt.setLong(1, id);
             rs = stmt.executeQuery();
 
@@ -56,9 +55,11 @@ public class FootballTeamDao extends AbsConnection implements ITeamDao {
 
     @Override
     public void saveEntity(FootballTeam team) {
-        String query = "insert into football_team (id, name, technical_manager_id, stadium_id, president_id, city_id) values (?,?,?,?,?,?)";
+        Connection con = getConnection();
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
         try {
-            stmt = con.prepareStatement(query);
+            stmt = con.prepareStatement(INSERT);
             //parsing values
             stmt.setLong(1, team.getId());
             stmt.setString(2, team.getName());
@@ -93,9 +94,10 @@ public class FootballTeamDao extends AbsConnection implements ITeamDao {
 
     @Override
     public void removeEntity(long id) {
-        String query = "delete from FootballTeam where id = ?";
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try {
-            stmt = con.prepareStatement(query);
+            stmt = con.prepareStatement(DELETE_BY_ID);
             stmt.setLong(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
@@ -115,21 +117,7 @@ public class FootballTeamDao extends AbsConnection implements ITeamDao {
 
     @Override
     public List<FootballTeam> getAll() throws SQLException {
-        List<FootballTeam> teams = new ArrayList<>();
-        String query = "SELECT * FROM `football_team`";
-        try {
-            stmt = con.prepareStatement(query);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                teams.add((FootballTeam) rs);
-            }
-        } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
-        } finally {
-            returnConnection(con);
-            stmt.close();
-            rs.close();
-        }
-        return teams;
+        LOGGER.info("Not Available");
+        return null;
     }
 }

@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MBTeam extends AbsSession implements TeamService {
+public class TeamImpl extends AbsSession implements TeamService {
 
-    private final static Logger LOGGER = LogManager.getLogger(MBTeam.class);
+    private final static Logger LOGGER = LogManager.getLogger(TeamImpl.class);
 
 
     @Override

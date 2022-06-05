@@ -10,9 +10,9 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MBPlayer extends AbsSession implements PlayerService {
+public class PlayerImpl extends AbsSession implements PlayerService {
 
-    private final static Logger LOGGER = LogManager.getLogger(MBPlayer.class);
+    private final static Logger LOGGER = LogManager.getLogger(PlayerImpl.class);
 
 
     @Override

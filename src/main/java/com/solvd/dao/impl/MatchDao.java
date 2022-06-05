@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MatchDao extends AbsConnection implements IMatchDao {
-    Connection con;
-    ResultSet rs;
-    PreparedStatement stmt;
-    private final static String SELECT = "SELECT * FROM `match`";
     private final static String SELECT_BY_ID = "SELECT * FROM `match` where id = ?";
     private final static String DELETE_BY_ID = "delete from `match` where id = ?";
     private final static String INSERT = "insert into `match` (id, q_goals, result, `date`, championship_id, stadium_id, football_team1_id, football_team2_id) values (?,?,?,?,?,?,?,?)";
@@ -21,14 +17,12 @@ public class MatchDao extends AbsConnection implements IMatchDao {
 
     private final static Logger LOGGER = LogManager.getLogger(MatchDao.class);
 
-    public MatchDao() {
-        con=getConnection();
-    }
-
     @Override
     public Match getEntityId(long id) throws SQLException {
         Match m = new Match();
-
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         try {
             stmt = con.prepareStatement(SELECT_BY_ID);
             stmt.setLong(1, id);
@@ -59,6 +53,8 @@ public class MatchDao extends AbsConnection implements IMatchDao {
 
     @Override
     public void saveEntity(Match match) {
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         try {
             stmt = con.prepareStatement(INSERT);
             //parsing values
@@ -89,6 +85,8 @@ public class MatchDao extends AbsConnection implements IMatchDao {
 
     @Override
     public void updateEntity(long id, Match entity) {
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         String result = entity.getResult();
         int qGoals = entity.getqGoals();
         String query = "UPDATE `match` SET result=" + result + ", set q_goals = " + qGoals + "where id = ?";
@@ -113,6 +111,8 @@ public class MatchDao extends AbsConnection implements IMatchDao {
 
     @Override
     public void removeEntity(long id) {
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         try {
             stmt = con.prepareStatement(DELETE_BY_ID);
             stmt.setLong(1, id);
@@ -134,21 +134,7 @@ public class MatchDao extends AbsConnection implements IMatchDao {
 
     @Override
     public List<Match> getAll() throws SQLException {
-        List<Match> matchs = new ArrayList<>();
-
-        try {
-            stmt = con.prepareStatement(SELECT);
-            rs = stmt.executeQuery();
-            while (rs.next()) {
-                matchs.add((Match) rs);
-            }
-        } catch (SQLException e) {
-            LOGGER.info(e.getMessage());
-        } finally {
-            returnConnection(con);
-            stmt.close();
-            rs.close();
-        }
-        return matchs;
+        LOGGER.info("Not Available");
+        return null;
     }
 }

@@ -13,21 +13,18 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class CaptainDao extends AbsConnection implements ICaptainDao {
-    Connection con;
-    ResultSet rs;
-    PreparedStatement stmt;
+
     private final static String SELECT_BY_ID = "SELECT * FROM `captain` where id_captain = ?";
     private final static String INSERT = "insert into `captain` (id_captain, name, lastname, football_team_id) values (?,?,?,?)";
     private final static String DELETE_BY_ID = "delete from `captain` where id_captain = ?";
 
     private final static Logger LOGGER = LogManager.getLogger(CaptainDao.class);
 
-    public CaptainDao(){
-        con = getConnection();
-    }
-
     @Override
     public Captain getEntityId(long id) throws SQLException {
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
+        Connection con = getConnection();
         Captain c= new Captain();
         try{
             stmt=con.prepareStatement(SELECT_BY_ID);
@@ -58,6 +55,8 @@ public class CaptainDao extends AbsConnection implements ICaptainDao {
 
     @Override
     public void saveEntity(Captain entity) {
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try{
             stmt = con.prepareStatement(INSERT);
             stmt.setLong(1,entity.getId());
@@ -87,6 +86,8 @@ public class CaptainDao extends AbsConnection implements ICaptainDao {
 
     @Override
     public void removeEntity(long id) {
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try {
             stmt = con.prepareStatement(DELETE_BY_ID);
             stmt.setLong(1, id);

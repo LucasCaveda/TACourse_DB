@@ -1,15 +1,16 @@
 package com.solvd;
 
 import com.solvd.binary.Player;
-import com.solvd.dao.util.ConnectionPool;
-import com.solvd.services.impl.PlayerImpl;
 import com.solvd.services.interfaces.PlayerService;
-import com.solvd.services.mybatys.MBPlayer;
+import com.solvd.services.impl.PlayerImpl;
+import com.solvd.services.jaxb.Jaxb;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.SQLException;
+import java.io.File;
+
+import static com.solvd.services.dom.DomParser.playersXML;
+import static com.solvd.services.json.Json.jsonService;
 
 
 public class App {
@@ -18,33 +19,58 @@ public class App {
 
     public static void main(String[] args) {
 
-        try (Connection c = ConnectionPool.getInstance().getConnection()) {
-            if (c != null) {
-                LOGGER.info("You are inside now");
-            } else {
-                LOGGER.info("You did not Connect to the server");
-            }
+        PlayerService ps = new PlayerImpl();
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        // Creating some players to play with
+
+        Player player = new Player(9, "Julian", "Gonzalez", null, 5, 0, 0, 1);
+        Player player2 = new Player(10L, "Juan", "Perez", null, 66, 1, 1, 1);
 
         // Testing different kind of services
 
-        Player player = new Player(9, "Julian", "Gonzalez", null, 5, 0, 0, 1);
-        Player player2 = new Player(10, "Juan", "Perez", null, 66, 3, 3, 1);
-
-        PlayerService ps = new PlayerImpl();
-
         LOGGER.info(ps.getPlayer(1).toString());
 
-        ps.update(9,player2);
+        ps.create(player2);
 
-        MBPlayer mbps = new MBPlayer();
+        //LOGGER.info(ps.getPlayer(10L).toString());
 
-        LOGGER.info(mbps.getPlayer(3).toString());
+        ps.delete(10L);
 
-        LOGGER.info(mbps.getAllPlayers());
+        LOGGER.info(ps.getAllPlayers());
 
+        ps.update(9L,player2);
+
+        // Playing with some kind of services
+
+        LOGGER.info("\n------------------------------------------------------------------------------------------------------\n");
+        LOGGER.info("The player "+ ps.getPlayer(9).getName() +" "+ ps.getPlayer(9).getLastname() + " has " + ps.getPlayer(9).getBanns() +" banns and " + ps.getPlayer(9).getGoals()+ " goals this season ");
+        LOGGER.info("\n------------------------------------------------------------------------------------------------------\n");
+        LOGGER.info("Updating data");
+        player.setGoals(3);
+        player.setBanns(1);
+        ps.update(9L,player);
+        LOGGER.info("The player "+ ps.getPlayer(9).getName() +" "+ ps.getPlayer(9).getLastname() + " has " + ps.getPlayer(9).getBanns() +" banns and " + ps.getPlayer(9).getGoals()+ " goals this season ");
+        LOGGER.info("\n------------------------------------------------------------------------------------------------------\n");
+
+        // json
+
+        File file= new File("src/main/resources/json/Player.json");
+
+        jsonService(file);
+
+        // Jaxb
+
+        Player playerUnmarshalled = new Player();
+
+        File file2 = new File("src/main/resources/Player.xml");
+
+        Jaxb.marshall(player,file2);
+        LOGGER.info("Marshall executed");
+
+        playerUnmarshalled = Jaxb.unmarshall(file2);
+        LOGGER.info("Unmarshall executed, objects created: "+ playerUnmarshalled);
+
+        // Dom Parser (It was optional, but I did it before I know that)
+        playersXML();
     }
 }

@@ -10,8 +10,8 @@ import org.apache.logging.log4j.Logger;
 import java.sql.SQLException;
 import java.util.List;
 
-public class MBMatch extends AbsSession implements MatchService {
-    private final static Logger LOGGER = LogManager.getLogger(MBMatch.class);
+public class MatchImpl extends AbsSession implements MatchService {
+    private final static Logger LOGGER = LogManager.getLogger(MatchImpl.class);
 
 
     @Override

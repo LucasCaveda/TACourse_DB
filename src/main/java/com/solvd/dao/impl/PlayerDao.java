@@ -10,24 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerDao extends AbsConnection implements IPlayerDao {
-    Connection con;
-    ResultSet rs;
-    PreparedStatement stmt;
-    private final static String SELECT = "SELECT * FROM `player`";
-    private final static String SELECT_BY_ID = "SELECT * FROM `player` where id_player = ?";
-    private final static String DELETE_BY_ID = "DELETE from `player` where id_player = ?";
-    private final static String INSERT = "INSERT into `player` (id_player, `name`, lastname, birthday, shirt_number, banns, goals, football_team_id) values (?,?,?,?,?,?,?,?)";
-    private final static String UPDATE = "UPDATE `player` SET `name`= ?, lastname = ?, birthday = ?, shirt_number = ?, banns = ?, goals = ? WHERE id_player = ?";
+
+    private final static String SELECT = "Select * from player";
+    private final static String SELECT_BY_ID = "SELECT * FROM player where id_player = ?";
+    private final static String DELETE_BY_ID = "DELETE from player where id_player = ?";
+    private final static String INSERT = "INSERT into player (id_player, name, lastname, birthday, shirt_number, banns, goals, football_team_id) values (?,?,?,?,?,?,?,?)";
+    private final static String UPDATE = "UPDATE player SET name= ?, lastname = ?, birthday = ?, shirt_number = ?, banns = ?, goals = ? WHERE id_player = ?";
 
 
     private final static Logger LOGGER = LogManager.getLogger(PlayerDao.class);
 
-    public PlayerDao() {
-        con = getConnection();
-    }
-
     @Override
     public Player getEntityId(long id) {
+        Connection con = getConnection();
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
         Player p = new Player();
 
         try {
@@ -64,6 +61,8 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
 
     @Override
     public void saveEntity(Player entity) {
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try {
             stmt = con.prepareStatement(INSERT);
             stmt.setLong(1, entity.getId());
@@ -92,6 +91,8 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
 
     @Override
     public void updateEntity(long id, Player entity) {
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try {
             stmt = con.prepareStatement(UPDATE);
             stmt.setString(1, entity.getName());
@@ -100,7 +101,7 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
             stmt.setInt(4, entity.getShirtNumber());
             stmt.setInt(5, entity.getBanns());
             stmt.setInt(6, entity.getGoals());
-            stmt.setLong(7, entity.getFootballTeamId());
+            stmt.setLong(7, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());
@@ -119,6 +120,8 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
 
     @Override
     public void removeEntity(long id) {
+        Connection con = getConnection();
+        PreparedStatement stmt=null;
         try {
             stmt = con.prepareStatement(DELETE_BY_ID);
             stmt.setLong(1, id);
@@ -138,14 +141,30 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
         }
     }
 
+    private Player convert(ResultSet rs) throws SQLException {
+        long id= rs.getLong("id_player");
+        String name = rs.getString("name");
+        String lastname = rs.getString("lastname");
+        Date birthday = rs.getDate("birthday");
+        int shirtNumber = rs.getInt("shirt_number");
+        int banns = rs.getInt("banns");
+        int goals = rs.getInt("goals");
+        long footballTeamId = rs.getLong("football_team_id");
+        Player newPlayer=new Player(id, name, lastname,birthday,shirtNumber,banns,goals,footballTeamId);
+        return newPlayer;
+    }
+
     @Override
     public List<Player> getAll() throws SQLException {
+        Connection con = getConnection();
+        ResultSet rs=null;
+        PreparedStatement stmt=null;
         List<Player> players = new ArrayList<>();
         try {
             stmt = con.prepareStatement(SELECT);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                players.add((Player) rs);
+                players.add(convert(rs));
             }
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());

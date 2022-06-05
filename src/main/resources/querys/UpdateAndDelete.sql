@@ -30,6 +30,17 @@ UPDATE country
 set idcountry = 2
 where idCountry = 3;
 
+UPDATE player
+set id_player = 2, name = Lucas, goals = 5
+where id_player = 3;
+
+UPDATE city
+set name = "Carlos Paz"
+where idCity = 3;
+
+UPDATE captain
+set id_captain = 2
+where id_captain = 3;
 
 select * from stadium;
 
@@ -41,18 +52,13 @@ DELETE from player where id_player = 3;
 
 DELETE from country where idCountry = 2;
 
--- inner join
+DELETE from player where id_player > 14;
 
-SELECT `match.championship_id`, championship.id
-from `match`
-inner join championship on championship.id = `match`.championship_id;
+DELETE from player where name = "Martin";
 
--- group by/having
+DELETE from player where goals > 3;
 
-SELECT player.id_player, player.name
-FROM player
-GROUP BY player.id_player, player.name
-HAVING player.id_player>2;
+DELETE from city where name = "Carlos paz";
 
 
 

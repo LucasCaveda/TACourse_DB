@@ -20,9 +20,9 @@
         ]]>
     </select>
 
-    <update id="updateEntity">
+    <update id="updateEntity" useGeneratedKeys="true" keyProperty="id, entity">
         <![CDATA[
-            Update player set `name` =#{name} where id_player=#{id}
+            Update player set name=#{entity.name}, goals=#{entity.goals}, banns=#{entity.banns} where id_player=#{entity.id}
         ]]>
     </update>
 
@@ -32,9 +32,9 @@
         ]]>
     </select>
     
-    <insert id="saveEntity" useGeneratedKeys="true" keyProperty="true">
+    <insert id="saveEntity" useGeneratedKeys="true">
         <![CDATA[
-            Insert into player (`name`, lastname, birthday, shirt_number, banns, goals, football_team_id)
+            Insert into player (name, lastname, birthday, shirt_number, banns, goals, football_team_id)
             values (#{name},#{lastname},#{birthday},#{shirtNumber},#{banns},#{goals},#{footballTeamId})
         ]]>
     </insert>

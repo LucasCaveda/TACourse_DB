@@ -1,4 +1,4 @@
-package com.solvd.runners;
+package com.solvd.services.dom;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,10 +16,6 @@ import java.io.IOException;
 public class DomParser {
 
     private static final Logger LOG = LogManager.getLogger(DomParser.class);
-
-    public static void main(String[] args) {
-        playersXML();
-    }
 
     public static void playersXML(){
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
