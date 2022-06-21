@@ -155,7 +155,7 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
     }
 
     @Override
-    public List<Player> getAll() throws SQLException {
+    public List<Player> getAll() {
         Connection con = getConnection();
         ResultSet rs=null;
         PreparedStatement stmt=null;
@@ -169,9 +169,13 @@ public class PlayerDao extends AbsConnection implements IPlayerDao {
         } catch (SQLException e) {
             LOGGER.info(e.getMessage());
         } finally {
-            returnConnection(con);
-            stmt.close();
-            rs.close();
+            try {
+                stmt.close();
+                rs.close();
+            } catch (SQLException e) {
+                LOGGER.info(e.getMessage());
+                throw new RuntimeException(e);
+            }
         }
         return players;
     }

@@ -21,7 +21,7 @@ public class CaptainDao extends AbsConnection implements ICaptainDao {
     private final static Logger LOGGER = LogManager.getLogger(CaptainDao.class);
 
     @Override
-    public Captain getEntityId(long id) throws SQLException {
+    public Captain getEntityId(long id) {
         ResultSet rs=null;
         PreparedStatement stmt=null;
         Connection con = getConnection();
@@ -81,6 +81,7 @@ public class CaptainDao extends AbsConnection implements ICaptainDao {
 
     @Override
     public void updateEntity(long id, Captain entity) {
+
         LOGGER.info("Not Available");
     }
 
@@ -108,7 +109,7 @@ public class CaptainDao extends AbsConnection implements ICaptainDao {
     }
 
     @Override
-    public List<Captain> getAll() throws SQLException {
+    public List<Captain> getAll() {
         LOGGER.info("Not Available");
         return null;
     }

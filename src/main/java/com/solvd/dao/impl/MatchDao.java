@@ -18,7 +18,7 @@ public class MatchDao extends AbsConnection implements IMatchDao {
     private final static Logger LOGGER = LogManager.getLogger(MatchDao.class);
 
     @Override
-    public Match getEntityId(long id) throws SQLException {
+    public Match getEntityId(long id){
         Match m = new Match();
         ResultSet rs=null;
         PreparedStatement stmt=null;
@@ -133,7 +133,7 @@ public class MatchDao extends AbsConnection implements IMatchDao {
     }
 
     @Override
-    public List<Match> getAll() throws SQLException {
+    public List<Match> getAll() {
         LOGGER.info("Not Available");
         return null;
     }

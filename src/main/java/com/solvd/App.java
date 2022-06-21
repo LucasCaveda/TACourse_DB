@@ -26,22 +26,15 @@ public class App {
         Player player = new Player(9, "Julian", "Gonzalez", null, 5, 0, 0, 1);
         Player player2 = new Player(10L, "Juan", "Perez", null, 66, 1, 1, 1);
 
-        // Testing different kind of services
-
         LOGGER.info(ps.getPlayer(1).toString());
-
-        ps.create(player2);
-
-        //LOGGER.info(ps.getPlayer(10L).toString());
-
-        ps.delete(10L);
-
-        LOGGER.info(ps.getAllPlayers());
-
-        ps.update(9L,player2);
 
         // Playing with some kind of services
 
+        ps.create(player2);
+        //LOGGER.info(ps.getPlayer(10L).toString());
+        ps.delete(10L);
+        LOGGER.info(ps.getAllPlayers());
+        ps.update(9L,player2);
         LOGGER.info("\n------------------------------------------------------------------------------------------------------\n");
         LOGGER.info("The player "+ ps.getPlayer(9).getName() +" "+ ps.getPlayer(9).getLastname() + " has " + ps.getPlayer(9).getBanns() +" banns and " + ps.getPlayer(9).getGoals()+ " goals this season ");
         LOGGER.info("\n------------------------------------------------------------------------------------------------------\n");
@@ -70,7 +63,7 @@ public class App {
         playerUnmarshalled = Jaxb.unmarshall(file2);
         LOGGER.info("Unmarshall executed, objects created: "+ playerUnmarshalled);
 
-        // Dom Parser (It was optional, but I did it before I know that)
+
         playersXML();
     }
 }

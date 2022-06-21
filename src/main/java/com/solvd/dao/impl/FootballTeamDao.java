@@ -89,6 +89,7 @@ public class FootballTeamDao extends AbsConnection implements ITeamDao {
 
     @Override
     public void updateEntity(long id, FootballTeam entity) {
+
         LOGGER.info("Not Available");
     }
 
@@ -116,7 +117,7 @@ public class FootballTeamDao extends AbsConnection implements ITeamDao {
     }
 
     @Override
-    public List<FootballTeam> getAll() throws SQLException {
+    public List<FootballTeam> getAll() {
         LOGGER.info("Not Available");
         return null;
     }

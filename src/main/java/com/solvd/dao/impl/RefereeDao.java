@@ -15,7 +15,7 @@ public class RefereeDao extends AbsConnection implements IRefereeDao {
     private final static Logger LOGGER = LogManager.getLogger(CaptainDao.class);
 
     @Override
-    public Referee getEntityId(long id) throws SQLException {
+    public Referee getEntityId(long id) {
         Referee r = new Referee();
         ResultSet rs=null;
         PreparedStatement stmt=null;
@@ -87,7 +87,7 @@ public class RefereeDao extends AbsConnection implements IRefereeDao {
     }
 
     @Override
-    public List<Referee> getAll() throws SQLException {
+    public List<Referee> getAll() {
         LOGGER.info("Not Available");
         return null;
     }
